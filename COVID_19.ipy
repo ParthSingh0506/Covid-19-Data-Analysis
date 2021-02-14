@@ -1,0 +1,30 @@
+#Import The Libraries
+
+import folium #<- FOR PLOTTING MAPS
+import plotly
+import pandas as pd
+import cufflinks as cf
+import plotly.express as px
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+%matplotlib inline
+plt.rcParams['figure.figsize']=17,8 #<-USING TO INCREASE THE SIZE OF THE FIGURE
+from matplotlib import style
+from plotly.offline import init_notebook_mode,plot,iplot
+
+#Import The Dataset
+
+df = pd.read_excel(r"D:\Programming\Machine_Learning\Projetcs\Data_Analysis PROJECTS\COIVD_MODEL\Covid cases in India.xlsx")
+df.drop(['S. No.'],axis=1,inplace=True)
+df
+
+#Creating New Column With Help of (india National) & (Forigen Nationial)
+df['Total Cases'] = df['Total Confirmed cases (Indian National)']+ df['Total Confirmed cases ( Foreign National )']
+print(df.head())
+
+#Creating New Column For Knowing The Active Cases in India
+df['Active Cases']=df['Total Cases']-(df['Cured']+df['Death'])
+df
+
+#Showing Highest Value in the dataset
+df.style.background_gradient(cmap='Reds')
